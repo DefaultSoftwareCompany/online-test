@@ -55,6 +55,13 @@ public class TestController {
         return modelAndView;
     }
 
+    @GetMapping("/api/test/delete/{testId}")
+    public ModelAndView delete(ModelAndView modelAndView, @PathVariable Integer testId) {
+        modelAndView.setViewName("redirect:/api/subject/get/" + testService.getOne(testId).getSubject().getSubjectId());
+        testService.delete(testId);
+        return modelAndView;
+    }
+
     @GetMapping("/api/test/start/{testId}")
     public ModelAndView startTest(@PathVariable Integer testId, ModelAndView modelAndView) {
         modelAndView.setViewName("test/test-start");

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users List</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <style>
         body {
@@ -30,13 +31,13 @@
     </style>
 </head>
 
-<body>
+<body sec:authorize="hasRole('OWNER')">
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
         <a class="navbar-brand" href="#">
-            <img src="../../static/img/dsc.png" alt="" width="180">
+            <img src="../../static/img/dsc.png" alt="" width="180" th:src="@{/img/dsc.png}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,16 +46,16 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item  custom-nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="#" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                    <a class="nav-link" href="#">Subjects</a>
+                    <a class="nav-link" href="#" th:href="@{/api/subject}">Subjects</a>
                 </li>
                 <li class="nav-item custom-nav-item active">
-                    <a class="nav-link" href="#">Top Users</a>
+                    <a class="nav-link" href="#">All Users</a>
                 </li>
                 <li class="nav-item custom-nav-item last-item">
-                    <a class="nav-link" href="#">Sign Up/In</a>
+                    <a class="nav-link" href="#" th:href="@{/api/user/get}" sec:authentication="name"></a>
                 </li>
             </ul>
         </div>
@@ -73,42 +74,28 @@
             <th>Giving the role of “teacher”</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody th:each="user : ${users}">
         <tr>
-            <td>Sunnatillo</td>
-            <td>Sharipov</td>
-            <td>5</td>
-            <td>87</td>
-            <td><a href="">Delete</a></td>
-            <td><a href="">Add To Teachers</a></td>
-        </tr>
-        <tr>
-            <td>Og'abek</td>
-            <td>Saidov</td>
-            <td>9</td>
-            <td>92</td>
-            <td><a href="">Delete</a></td>
-            <td><a href="">Add To Teachers</a></td>
-        </tr>
-        <tr>
-            <td>Ahmadjon</td>
-            <td>Ergashev</td>
-            <td>7</td>
-            <td>63</td>
-            <td><a href="">Delete</a></td>
-            <td><a href="">Add To Teachers</a></td>
+            <td th:text="${user.user.firstName}"></td>
+            <td th:text="${user.user.lastName}"></td>
+            <td th:text="${user.user.results.size()}"></td>
+            <td th:text="${user.getAverageScore()}"></td>
+            <td><a href="" th:href="@{/api/user/delete/{userId}(userId = ${user.user.userId})}">Delete</a></td>
+            <td><a href="" th:href="@{/api/user/add-to-teacher/{userId}(userId=${user.user.userId})}">Add To
+                Teachers</a></td>
         </tr>
         </tbody>
     </table>
 </div>
 
 
-<script src="../../static/js/jquery.js"></script>
-<script src="../../static/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" charset="utf8" src="../../static/js/dataTables.js"></script>
+<script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+<script src="../../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" charset="utf8" src="../../static/js/dataTables.js"
+        th:src="@{/js/dataTables.js}"></script>
 <script>
     $(document).ready(function () {
-        var table = $('#users').DataTable();
+        $('#users').DataTable();
     });
 </script>
 </body>

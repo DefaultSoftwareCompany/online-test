@@ -29,16 +29,16 @@
                     </a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                    <a class="nav-link" href="#" th:href="@{/api/subjects}">Subjects</a>
+                    <a class="nav-link" href="#" th:href="@{/api/subject}">Subjects</a>
                 </li>
-                <li class="nav-item custom-nav-item">
-                    <a class="nav-link" href="#" th:href="@{/api/user/top}">Top Users</a>
+                <li class="nav-item custom-nav-item" sec:authorize="hasRole('OWNER')">
+                    <a class="nav-link" href="#" th:href="@{/api/user/all}">Top Users</a>
                 </li>
                 <li class="nav-item custom-nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link" href="#" th:href="@{/api/user/add}">Sign Up/In</a>
                 </li>
                 <li class="nav-item custom-nav-item" sec:authorize="isAuthenticated()">
-                    <a href="#" class="nav-link" sec:authentication="name" th:href=""></a>
+                    <a href="#" class="nav-link" sec:authentication="name" th:href="@{/api/user/get}"></a>
                 </li>
             </ul>
         </div>

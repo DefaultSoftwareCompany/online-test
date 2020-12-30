@@ -9,4 +9,7 @@ public class ResultJsModel {
     private Integer testId;
 
     private Byte score;
+
+    private String date;
+
 }

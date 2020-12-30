@@ -25,4 +25,6 @@ public class Result {
     @JsonIgnore
     private Users student;
 
+    private String date;
+
 }

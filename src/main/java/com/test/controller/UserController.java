@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -53,4 +54,26 @@ public class UserController {
         }
         return modelAndView;
     }
+
+    @GetMapping("/api/user/all")
+    public ModelAndView getAll(ModelAndView modelAndView) {
+        modelAndView.setViewName("user/users-list");
+        modelAndView.addObject("users", service.getAll());
+        return modelAndView;
+    }
+
+    @GetMapping("/api/user/delete/{userId}")
+    public ModelAndView delete(@PathVariable Integer userId, ModelAndView modelAndView) {
+        modelAndView.setViewName("redirect:/api/user/all");
+        service.delete(userId);
+        return modelAndView;
+    }
+
+    @GetMapping("/api/user/add-to-teacher/{userId}")
+    public ModelAndView addToTeachers(@PathVariable Integer userId, ModelAndView modelAndView) {
+        modelAndView.setViewName("redirect:/api/user/all");
+        service.addTeacherRole(userId);
+        return modelAndView;
+    }
+
 }

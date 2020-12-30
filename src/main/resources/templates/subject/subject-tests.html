@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Subject Tests</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <style>
         body {
@@ -20,7 +21,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
         <a class="navbar-brand" href="#">
-            <img src="../../static/img/dsc.png" alt="" width="180">
+            <img src="../../static/img/dsc.png" alt="" width="180" th:src="@{/img/dsc.png}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,16 +30,19 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item  custom-nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="#" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                    <a class="nav-link" href="#">Subjects</a>
+                    <a class="nav-link" href="#" th:href="@{/api/subject}">Subjects</a>
                 </li>
-                <li class="nav-item custom-nav-item">
-                    <a class="nav-link" href="#">Top Users</a>
+                <li class="nav-item custom-nav-item" sec:authorize="hasRole('OWNER')">
+                    <a class="nav-link" href="#">All Users</a>
                 </li>
-                <li class="nav-item custom-nav-item last-item">
+                <li class="nav-item custom-nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link" href="#">Sign Up/In</a>
+                </li>
+                <li class="nav-item custom-nav-item" sec:authorize="isAuthenticated()">
+                    <a href="" class="nav-link" sec:authentication="name" th:href="@{/api/user/get}"></a>
                 </li>
             </ul>
         </div>
@@ -57,174 +61,26 @@
             <th>Delete</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody th:each="test : ${subject.tests}">
         <tr>
-            <td>TestName 1</td>
-            <td>01</td>
-            <td>01</td>
-            <td>01</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 2</td>
-            <td>02</td>
-            <td>02</td>
-            <td>02</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 3</td>
-            <td>03</td>
-            <td>03</td>
-            <td>03</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 4</td>
-            <td>04</td>
-            <td>04</td>
-            <td>04</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 5</td>
-            <td>05</td>
-            <td>05</td>
-            <td>05</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 6</td>
-            <td>06</td>
-            <td>06</td>
-            <td>06</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 7</td>
-            <td>07</td>
-            <td>07</td>
-            <td>07</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 8</td>
-            <td>08</td>
-            <td>08</td>
-            <td>08</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 9</td>
-            <td>09</td>
-            <td>09</td>
-            <td>09</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 10</td>
-            <td>10</td>
-            <td>10</td>
-            <td>10</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 11</td>
-            <td>11</td>
-            <td>11</td>
-            <td>11</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 12</td>
-            <td>12</td>
-            <td>12</td>
-            <td>12</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 13</td>
-            <td>13</td>
-            <td>13</td>
-            <td>13</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 14</td>
-            <td>14</td>
-            <td>14</td>
-            <td>14</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 15</td>
-            <td>15</td>
-            <td>15</td>
-            <td>15</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 16</td>
-            <td>16</td>
-            <td>16</td>
-            <td>16</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 17</td>
-            <td>17</td>
-            <td>17</td>
-            <td>17</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 18</td>
-            <td>18</td>
-            <td>18</td>
-            <td>18</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 19</td>
-            <td>19</td>
-            <td>19</td>
-            <td>19</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
-        <tr>
-            <td>TestName 20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td><a href="">Start</a></td>
-            <td><a href="">Delete</a></td>
+            <td th:text="${test.testName}"></td>
+            <td th:text="${test.questions.size()}"></td>
+            <td th:text="${test.timeRestriction}"></td>
+            <td th:text="${test.numberOfTests}"></td>
+            <td>
+                <a href="" th:href="@{/api/test/start/{testId}(testId=${test.testId})}">Start</a>
+            </td>
+            <td>
+                <a href="" th:href="@{/api/test/delete/{testId}(testId=${test.testId})}">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
 
-<script src="../../static/js/jquery.js"></script>
-<script src="../../static/js/bootstrap.bundle.min.js"></script>
-<script src="../../static/js/dataTables.js"></script>
+<script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+<script src="../../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="../../static/js/dataTables.js" th:src="@{/js/dataTables.js}"></script>
 <script>
     $("#tests").dataTable();
 </script>

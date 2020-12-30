@@ -1,19 +1,49 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Test</title>
-    <link rel="stylesheet" href="../../static/css/test.css">
+    <link rel="stylesheet" href="../../static/css/test.css" th:href="@{/css/test.css}">
 </head>
 <body>
 
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="../../static/img/dsc.png" alt="" width="180" th:src="@{/img/dsc.png}">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item  custom-nav-item active">
+                    <a class="nav-link" href="#" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item custom-nav-item">
+                    <a class="nav-link" href="#" th:href="@{/api/subject}">Subjects</a>
+                </li>
+                <li class="nav-item custom-nav-item" sec:authorize="hasRole('OWNER')">
+                    <a class="nav-link" href="#">All Users</a>
+                </li>
+                <li class="nav-item custom-nav-item last-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="#" sec:authentication="name"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
-    <h1>Test Name</h1>
-    <p class="time-restriction" style="display: none">1</p>
-    <div class="questions">
+    <h1 th:text="${test.testName}" class="test-name"></h1>
+    <p class="time-restriction" style="display: none" th:text="${test.timeRestriction}"></p>
+    <div class="questions" th:each="question : ${test.questions}">
         <div class="score" style="display: none">
             <h2></h2>
             <h3>Review</h3>
@@ -24,36 +54,9 @@
             <p class="end-time">Completion time:</p>
         </div>
         <div class="question">
-            <p class="question-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consequatur fuga
-                repudiandae sequi vero. Aliquid doloribus exercitationem facilis hic impedit in itaque iusto labore nemo
-                neque nesciunt placeat ratione rerum unde veniam vero, voluptatum. Amet architecto dolores ducimus est
-                expedita magni molestias, mollitia necessitatibus nulla omnis optio qui repellat sapiente?</p>
-            <div class="options">
-                <p true-answer="false">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At excepturi facilis
-                    nam neque veritatis?
-                    Beatae commodi doloremque esse facilis id, incidunt minus molestias, nesciunt nobis non repudiandae
-                    sed. A distinctio eos et eveniet fugit minus quas quod rem repellendus ut! Aut deleniti deserunt
-                    ducimus minima non, pariatur quidem ullam velit?</p>
-                <p true-answer="false">Option 2</p>
-                <p true-answer="true">Option 3</p>
-                <p true-answer="false">Option 4</p>
-            </div>
-        </div>
-
-        <div class="question">
-            <p class="question-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consequatur fuga
-                repudiandae sequi vero. Aliquid doloribus exercitationem facilis hic impedit in itaque iusto labore nemo
-                neque nesciunt placeat ratione rerum unde veniam vero, voluptatum. Amet architecto dolores ducimus est
-                expedita magni molestias, mollitia necessitatibus nulla omnis optio qui repellat sapiente?</p>
-            <div class="options">
-                <p true-answer="false">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At excepturi facilis
-                    nam neque veritatis?
-                    Beatae commodi doloremque esse facilis id, incidunt minus molestias, nesciunt nobis non repudiandae
-                    sed. A distinctio eos et eveniet fugit minus quas quod rem repellendus ut! Aut deleniti deserunt
-                    ducimus minima non, pariatur quidem ullam velit?</p>
-                <p true-answer="false">Option 2</p>
-                <p true-answer="true">Option 3</p>
-                <p true-answer="false">Option 4</p>
+            <p class="question-text" th:text="${question.questionText}"></p>
+            <div class="options" th:each="option : ${question.options}">
+                <p th:text="${option.optionValue}" th:attr="true-answer=${option.isTrue}"></p>
             </div>
         </div>
     </div>
@@ -103,6 +106,24 @@
             });
             document.querySelector("button.submit").style.display = "none";
             count = 1;
+            let data = {};
+            let date = new Date();
+            data.date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+            date.score = parseInt(trueAnswers * 100 / allQuestions);
+            date.testId = parseInt(document.querySelector(".text-name").innerHTML);
+            fetch("/api/result/save", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(function (response) {
+                return response.json();
+            }).then(function (text) {
+                console.log(text)
+            }).catch(function (error) {
+                console.log(error);
+            })
         }
     }
 
