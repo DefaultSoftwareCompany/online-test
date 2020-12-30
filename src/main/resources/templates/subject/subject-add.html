@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Subject Add</title>
+    <style>
+        body {
+            background: rgb(78, 224, 139);
+            background: radial-gradient(circle, rgba(78, 224, 139, 1) 9%, rgba(226, 219, 71, 1) 54%, rgba(152, 223, 237, 1) 100%, rgba(9, 9, 121, 1) 100%);
+        }
+
+        .container {
+            background-color: white;
+            margin: 30px;
+            padding: 30px;
+            border: 7px inset blueviolet;
+            border-radius: 12px;
+            min-height: 70vh;
+            box-shadow: 5px 5px 20px 5px black;
+        }
+
+        input {
+            padding: 8px;
+            width: 80%;
+            display: block;
+            margin: 20px 0;
+            border-radius: 7px;
+        }
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            font-family: Bodoni Mt;
+            color: rgb(28, 28, 85);
+            text-shadow: 2px 2px 4px rgb(115, 197, 68);
+            margin-bottom: 50px;
+        }
+
+        .note {
+            color: black;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        button {
+            color: white;
+            background-color: rgb(51, 207, 72);
+            font-weight: bold;
+            font-size: 15px;
+            letter-spacing: 1px;
+            display: block;
+            width: 200px;
+            padding: 10px;
+            border: 2px solid rgb(15, 41, 15);
+            border-radius: 12px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .text {
+            font-family: Berlin Sans FB;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Add Subject</h1>
+    <p class="note">The science name must be unique!</p>
+    <p class="text">Users who have a teacher role in this subject can then add tests. Students are given the role of
+        teacher based on their high average grades.</p>
+    <p class="error"></p>
+    <form action="" method="post" th:action="@{/api/subject/add}" th:object="${subject}">
+        <p th:text="${error}" style="color: red"></p>
+        <input type="text" placeholder="Subject Name" th:field="*{subjectName}">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+
+</html>

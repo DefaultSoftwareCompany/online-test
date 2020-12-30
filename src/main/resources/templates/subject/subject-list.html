@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Subject List</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../../static/css/table.css">
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="../../static/img/dsc.png" alt="" width="180">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item  custom-nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item custom-nav-item active">
+                    <a class="nav-link" href="#">Subjects</a>
+                </li>
+                <li class="nav-item custom-nav-item">
+                    <a class="nav-link" href="#">Top Users</a>
+                </li>
+                <li class="nav-item custom-nav-item last-item">
+                    <a class="nav-link" href="#">Sign Up/In</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="custom-container">
+    <h1 class="text-center">Subjects</h1>
+    <table id="subjects" class="table table-striped table-bordered text-center">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Subject Name</th>
+            <th>Number Of Tests</th>
+            <th>Start The Tests</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Subject 01</td>
+            <td>01</td>
+            <td><a href="">Start The Tests</a></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Subject 02</td>
+            <td>02</td>
+            <td><a href="">Start The Tests</a></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Subject 03</td>
+            <td>03</td>
+            <td><a href="">Start The Tests</a></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Subject 04</td>
+            <td>04</td>
+            <td><a href="">Start The Tests</a></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Subject 05</td>
+            <td>05</td>
+            <td><a href="">Start The Tests</a></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4" style="text-align: center;font-weight: bold;letter-spacing: 1px;color: rgb(97, 231, 97);">
+                Add Subject
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script src="../../static/js/jquery.js"></script>
+<script src="../../static/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" charset="utf8" src="../../static/js/dataTables.js"></script>
+<script>
+    $("#subjects ").DataTable();
+</script>
+</body>
+
+</html>

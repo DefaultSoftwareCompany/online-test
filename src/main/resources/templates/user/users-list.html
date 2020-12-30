@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users List</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <style>
+        body {
+            background: linear-gradient(orange, green);
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            box-shadow: 5px 5px 15px 0 black;
+            border-radius: 7px;
+            padding: 10px 20px;
+            margin-top: 15px;
+            background-color: white;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-family: Bodoni MT;
+            font-weight: lighter;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="../../static/img/dsc.png" alt="" width="180">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item  custom-nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item custom-nav-item">
+                    <a class="nav-link" href="#">Subjects</a>
+                </li>
+                <li class="nav-item custom-nav-item active">
+                    <a class="nav-link" href="#">Top Users</a>
+                </li>
+                <li class="nav-item custom-nav-item last-item">
+                    <a class="nav-link" href="#">Sign Up/In</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container wrapper">
+    <h1>All Users</h1>
+    <table id="users" class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Number of tests worked</th>
+            <th>AverageScore</th>
+            <th>Delete User</th>
+            <th>Giving the role of “teacher”</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Sunnatillo</td>
+            <td>Sharipov</td>
+            <td>5</td>
+            <td>87</td>
+            <td><a href="">Delete</a></td>
+            <td><a href="">Add To Teachers</a></td>
+        </tr>
+        <tr>
+            <td>Og'abek</td>
+            <td>Saidov</td>
+            <td>9</td>
+            <td>92</td>
+            <td><a href="">Delete</a></td>
+            <td><a href="">Add To Teachers</a></td>
+        </tr>
+        <tr>
+            <td>Ahmadjon</td>
+            <td>Ergashev</td>
+            <td>7</td>
+            <td>63</td>
+            <td><a href="">Delete</a></td>
+            <td><a href="">Add To Teachers</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="../../static/js/jquery.js"></script>
+<script src="../../static/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" charset="utf8" src="../../static/js/dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#users').DataTable();
+    });
+</script>
+</body>
+
+</html>

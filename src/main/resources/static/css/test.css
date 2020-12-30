@@ -1,0 +1,97 @@
+body {
+    background: radial-gradient(greenyellow, orange, deepskyblue);
+}
+
+.container {
+    background: white;
+    margin: 15px 30px;
+    padding: 15px 30px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px 0 black;
+}
+
+h1 {
+    text-align: center;
+}
+
+.question-text {
+    border-radius: 5px;
+    font-weight: bold;
+    background: orange;
+    padding: 7px;
+}
+
+.options > p {
+    border: 2px inset darkslategrey;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s all linear;
+}
+
+.options > p:hover {
+    transform: translate(5px, -5px);
+    border-top: 2px inset darkslategrey;
+    border-right: 2px inset darkslategrey;
+    border-left: 8px outset darkslategrey;
+    border-bottom: 8px outset darkslategrey;
+}
+
+.error:before {
+    content: "";
+    background-image: url("../../static/img/error.png");
+    background-size: contain;
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+    width: 25px;
+    height: 25px;
+}
+
+.correct:before {
+    content: "";
+    display: inline-block;
+    color: green;
+    font-weight: bold;
+    background-image: url("../../static/img/correct.png");
+    background-size: contain;
+    width: 25px;
+    height: 25px;
+}
+
+.selected {
+    background: darkgreen;
+    color: white;
+}
+
+.questions h3 {
+    text-align: center;
+    font-size: 23px;
+    color: darkslategrey;
+    text-shadow: 0 0 1px black;
+}
+
+.questions h2 {
+    color: orangered;
+    text-shadow: 2px 2px 5px green;
+}
+
+.review-question-text {
+    font-weight: bold;
+    border: 1px solid grey !important;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+.review p {
+    border-bottom: 1px solid orangered;
+}
+
+button{
+    display: block;
+    background-color: #0b2e13;
+    border-radius: 7px;
+    color: white;
+    padding: 8px;
+
+}

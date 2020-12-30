@@ -1,5 +1,6 @@
 package com.test.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,11 +16,12 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Byte roleId;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String roleName;
 
     @ManyToMany(mappedBy = "roles")
-    private List<TestWorkers> users;
+    @JsonIgnore
+    private List<Users> users;
 
     @Override
     public boolean equals(Object o) {

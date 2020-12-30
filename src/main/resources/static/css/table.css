@@ -1,0 +1,11 @@
+body {
+    background: radial-gradient(rgb(28, 158, 28), rgb(91, 162, 228), rgb(199, 167, 24));
+}
+
+.custom-container {
+    background-color: white;
+    margin: 40px;
+    padding: 30px;
+    box-shadow: 5px 5px 15px 0 black;
+    border-radius: 15px;
+}

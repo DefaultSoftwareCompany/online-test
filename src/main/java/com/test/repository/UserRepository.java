@@ -1,16 +1,16 @@
 package com.test.repository;
 
-import com.test.model.TestWorkers;
+import com.test.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<TestWorkers, Integer> {
-    public TestWorkers getByUserNameAndPassword(String userName, String password);
+public interface UserRepository extends JpaRepository<Users, Integer> {
+    public Users getByUserNameAndPassword(String userName, String password);
 
-    public TestWorkers getByUserName(String userName);
+    public Users getByUserName(String userName);
 
-    public TestWorkers findByUserId(Integer userId);
+    public Users findByUserId(Integer userId);
 
     public Boolean existsByUserName(String userName);
 }

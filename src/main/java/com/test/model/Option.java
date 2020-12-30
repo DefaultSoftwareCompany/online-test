@@ -1,5 +1,6 @@
 package com.test.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,13 +15,18 @@ public class Option {
     private Long optionId;
 
     @Column(
-            columnDefinition = "text"
+            columnDefinition = "text",
+            nullable = false
     )
     private String optionValue;
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnore
     private Question question;
 
+    @Column(
+            columnDefinition = "boolean default false"
+    )
     private Boolean isTrue;
 }

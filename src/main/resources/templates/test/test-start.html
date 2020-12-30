@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <link rel="stylesheet" href="../../static/css/test.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Test Name</h1>
+    <p class="time-restriction" style="display: none">1</p>
+    <div class="questions">
+        <div class="score" style="display: none">
+            <h2></h2>
+            <h3>Review</h3>
+        </div>
+        <div class="time"
+             style="display: flex; justify-content: space-around; font-weight:bold;font-size: 20px; color: orangered; text-shadow: 1px 1px 1px black">
+            <p class="start-time">Started:</p>
+            <p class="end-time">Completion time:</p>
+        </div>
+        <div class="question">
+            <p class="question-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consequatur fuga
+                repudiandae sequi vero. Aliquid doloribus exercitationem facilis hic impedit in itaque iusto labore nemo
+                neque nesciunt placeat ratione rerum unde veniam vero, voluptatum. Amet architecto dolores ducimus est
+                expedita magni molestias, mollitia necessitatibus nulla omnis optio qui repellat sapiente?</p>
+            <div class="options">
+                <p true-answer="false">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At excepturi facilis
+                    nam neque veritatis?
+                    Beatae commodi doloremque esse facilis id, incidunt minus molestias, nesciunt nobis non repudiandae
+                    sed. A distinctio eos et eveniet fugit minus quas quod rem repellendus ut! Aut deleniti deserunt
+                    ducimus minima non, pariatur quidem ullam velit?</p>
+                <p true-answer="false">Option 2</p>
+                <p true-answer="true">Option 3</p>
+                <p true-answer="false">Option 4</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consequatur fuga
+                repudiandae sequi vero. Aliquid doloribus exercitationem facilis hic impedit in itaque iusto labore nemo
+                neque nesciunt placeat ratione rerum unde veniam vero, voluptatum. Amet architecto dolores ducimus est
+                expedita magni molestias, mollitia necessitatibus nulla omnis optio qui repellat sapiente?</p>
+            <div class="options">
+                <p true-answer="false">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At excepturi facilis
+                    nam neque veritatis?
+                    Beatae commodi doloremque esse facilis id, incidunt minus molestias, nesciunt nobis non repudiandae
+                    sed. A distinctio eos et eveniet fugit minus quas quod rem repellendus ut! Aut deleniti deserunt
+                    ducimus minima non, pariatur quidem ullam velit?</p>
+                <p true-answer="false">Option 2</p>
+                <p true-answer="true">Option 3</p>
+                <p true-answer="false">Option 4</p>
+            </div>
+        </div>
+    </div>
+
+    <button class="submit" onclick="submit()">Submit All And Finish</button>
+</div>
+
+<script type="text/javascript">
+    let count = 0;
+
+    function animation() {
+        let date = new Date();
+        document.querySelector(".start-time").innerHTML += " " + date.getHours() + ":" + date.getMinutes();
+        date = new Date(date.getTime() + parseInt(document.querySelector(".time-restriction").innerHTML) * 60000);
+        document.querySelector(".end-time").innerHTML += " " + date.getHours() + ":" + date.getMinutes();
+        document.querySelectorAll(".options").forEach(function (options) {
+            options.querySelectorAll("p").forEach(function (option) {
+                option.addEventListener("click", function () {
+                    let selectedElement = options.querySelector(".selected");
+                    if (selectedElement) selectedElement.classList.remove("selected");
+                    option.classList.add("selected");
+                });
+            });
+        });
+    }
+
+    function submit() {
+        if (count === 0) {
+
+            let allQuestions = document.querySelectorAll(".question").length;
+            let trueAnswers = document.querySelectorAll(".selected[true-answer=true]").length;
+            document.querySelectorAll(".selected[true-answer=false]").forEach(function (wrongAnswer) {
+                wrongAnswer.classList.add("error");
+                wrongAnswer.classList.remove("selected");
+            });
+            document.querySelectorAll("[true-answer=true]").forEach(function (correctAnswer) {
+                correctAnswer.classList.add("correct");
+                if (correctAnswer.classList.contains("selected")) correctAnswer.classList.remove("selected");
+            });
+            document.querySelector(".time").style.display = "none";
+            document.querySelector(".score").style.display = "block";
+            document.querySelector(".score h2").textContent = "Your Score: " + parseInt(trueAnswers * 100 / allQuestions);
+            document.querySelectorAll(".question").forEach(function (question) {
+                question.querySelector(".question-text").classList.replace("question-text", "review-question-text");
+                question.querySelector(".options").classList.replace("options", "review-question-options");
+                question.classList.replace("question", "review-question");
+            });
+            document.querySelector("button.submit").style.display = "none";
+            count = 1;
+        }
+    }
+
+    animation();
+
+    setTimeout(submit, parseInt(document.querySelector(".time-restriction").innerHTML) * 60000);
+</script>
+</body>
+</html>

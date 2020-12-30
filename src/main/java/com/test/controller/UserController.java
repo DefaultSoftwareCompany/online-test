@@ -1,11 +1,15 @@
 package com.test.controller;
 
-import com.test.model.TestWorkers;
+import com.test.model.Users;
 import com.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -19,30 +23,34 @@ public class UserController {
 
     @GetMapping("/api/user/add")
     public ModelAndView addPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("user/user-add");
-        modelAndView.addObject("user", new TestWorkers());
+        modelAndView.addObject("error", "");
+        modelAndView.setViewName("user/register");
+        modelAndView.addObject("user", new Users());
         return modelAndView;
     }
 
     @PostMapping("/api/user/add")
-    public @ResponseBody
-    TestWorkers save(@ModelAttribute TestWorkers user) {
-        System.out.println(user);
+    public ModelAndView save(@ModelAttribute Users user, ModelAndView modelAndView) {
         try {
-            return service.save(user);
+            user = service.save(user);
+            modelAndView.setViewName("home");
         } catch (Exception e) {
-            System.out.println(e);
+            modelAndView.setViewName("user/register");
+            modelAndView.addObject(user);
+            modelAndView.addObject("error", e.getMessage());
         }
-        return user;
+        return modelAndView;
     }
 
-    @PostMapping("/api/user/edit/{userId}")
-    public ResponseEntity<TestWorkers> edit(@PathVariable Integer userId, @RequestParam String userName, @RequestParam String password) {
-        return ResponseEntity.ok(service.edit(userId, userName, password));
-    }
-
-    @GetMapping("/api/user/get/{userName}")
-    public ResponseEntity<Boolean> checkUserName(@PathVariable String userName) {
-        return ResponseEntity.ok(service.checkUserName(userName));
+    @GetMapping("/api/user/get")
+    public ModelAndView getUser(ModelAndView modelAndView) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof AnonymousAuthenticationToken)
+            modelAndView.setViewName("home");
+        else {
+            modelAndView.setViewName("user/cabinet");
+            modelAndView.addObject("user", service.getByUserName(authentication.getName()));
+        }
+        return modelAndView;
     }
 }

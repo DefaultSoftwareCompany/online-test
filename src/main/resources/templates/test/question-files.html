@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Question File</title>
+    <style>
+        body {
+            background: linear-gradient(70deg, green, yellow, green);
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(30, 27, 75);
+            text-shadow: 1px 1px 3px black;
+        }
+
+        p {
+            line-height: 1.5;
+            font-weight: bold;
+            font-family: consolas;
+        }
+
+        .container {
+            background-color: white;
+            min-height: 80vh;
+            border: 5px solid #305BF6;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px;
+            border: 7px inset rgb(54, 92, 216);
+            box-shadow: 0 0 15px 0 black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form action="#" method="post" th:action="@{/api/test/questions}">
+        <h1>Add tests files in your Test</h1>
+        <p>The file must be in xls or xlxs format, the questions and options must be in one row, the first cell must
+            contain the text of the question, the second cell must contain the correct answer, and the remaining cells
+            must contain other options.</p>
+        <p style="color: red" th:text="${error}"></p>
+        <input type="hidden" name="testId" th:value="${test.testId}">
+        <input type="file" class="form-control" class="file">
+    </form>
+</div>
+
+</body>
+</html>

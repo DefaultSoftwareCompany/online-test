@@ -1,5 +1,6 @@
 package com.test.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Entity
-public class TestWorkers {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
@@ -19,18 +20,14 @@ public class TestWorkers {
 
     private String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String userName;
 
+    @Column(nullable = false)
     private String password;
 
-    @ManyToMany(mappedBy = "students")
-    private List<Groups> studentGroups;
-
-    @OneToMany(mappedBy = "teacher")
-    private List<Groups> teacherGroups;
-
     @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Result> results;
 
     @ManyToMany
@@ -41,14 +38,4 @@ public class TestWorkers {
     )
     private Set<Roles> roles;
 
-    @Override
-    public String toString() {
-        return "TestWorkers{" +
-                "userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

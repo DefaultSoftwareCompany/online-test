@@ -1,5 +1,6 @@
 package com.test.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +15,10 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Byte subjectId;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String subjectName;
 
     @OneToMany(mappedBy = "subject")
-    private List<Groups> groups;
+    @JsonIgnore
+    private List<Test> tests;
 }

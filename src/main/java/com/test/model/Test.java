@@ -1,5 +1,6 @@
 package com.test.model;
 
+import com.sun.istack.Nullable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,31 +15,27 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer testId;
 
+    @Column(
+            unique = true
+    )
     private String testName;
-
-    private String startDate;
-
-    private String startTime;
 
     private Short timeRestriction;
 
-    private String expirationTime;
-
-    private String numberOfTests;
+    private Short numberOfTests;
 
     private Byte numberOfOptions;
 
     @OneToMany(mappedBy = "test")
     private List<Result> results;
 
-    @ManyToMany
-    @JoinTable(
-            name = "test_group",
-            joinColumns = @JoinColumn(name = "test_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id")
-    )
-    private List<Groups> groups;
-
-    @OneToMany(mappedBy = "test", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL)
     private List<Question> questions;
+
+    @ManyToOne
+    @JoinColumn
+    private Subject subject;
+
+    @OneToOne(mappedBy = "test")
+    private QuestionFiles questionFiles;
 }

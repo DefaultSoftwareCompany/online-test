@@ -1,5 +1,6 @@
 package com.test.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +16,8 @@ public class Question {
     private Long questionId;
 
     @Column(
-            columnDefinition = "text"
+            columnDefinition = "text",
+            nullable = false
     )
     private String questionText;
 
@@ -25,5 +27,6 @@ public class Question {
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnore
     private Test test;
 }

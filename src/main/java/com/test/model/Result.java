@@ -1,6 +1,6 @@
 package com.test.model;
 
-import com.test.repository.UserRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +14,7 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long resultId;
 
-    private Short numberOfTrueAnswers;
-
-    private Short numberOfTests;
+    private Byte score;
 
     @ManyToOne
     @JoinColumn
@@ -24,6 +22,7 @@ public class Result {
 
     @ManyToOne
     @JoinColumn
-    private TestWorkers student;
+    @JsonIgnore
+    private Users student;
 
 }

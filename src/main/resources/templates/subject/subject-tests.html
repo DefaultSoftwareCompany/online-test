@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Subject Tests</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <style>
+        body {
+            background: radial-gradient(blue, green, orangered);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="../../static/img/dsc.png" alt="" width="180">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item  custom-nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item custom-nav-item">
+                    <a class="nav-link" href="#">Subjects</a>
+                </li>
+                <li class="nav-item custom-nav-item">
+                    <a class="nav-link" href="#">Top Users</a>
+                </li>
+                <li class="nav-item custom-nav-item last-item">
+                    <a class="nav-link" href="#">Sign Up/In</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container bg-white p-5 mt-5">
+    <h1 class="text-center">Subject Tests</h1>
+    <table id="tests" class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>TestName</th>
+            <th>Total number of tests</th>
+            <th>Time Restriction (min)</th>
+            <th>Number of Questions</th>
+            <th>Start the test</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>TestName 1</td>
+            <td>01</td>
+            <td>01</td>
+            <td>01</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 2</td>
+            <td>02</td>
+            <td>02</td>
+            <td>02</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 3</td>
+            <td>03</td>
+            <td>03</td>
+            <td>03</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 4</td>
+            <td>04</td>
+            <td>04</td>
+            <td>04</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 5</td>
+            <td>05</td>
+            <td>05</td>
+            <td>05</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 6</td>
+            <td>06</td>
+            <td>06</td>
+            <td>06</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 7</td>
+            <td>07</td>
+            <td>07</td>
+            <td>07</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 8</td>
+            <td>08</td>
+            <td>08</td>
+            <td>08</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 9</td>
+            <td>09</td>
+            <td>09</td>
+            <td>09</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 10</td>
+            <td>10</td>
+            <td>10</td>
+            <td>10</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 11</td>
+            <td>11</td>
+            <td>11</td>
+            <td>11</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 12</td>
+            <td>12</td>
+            <td>12</td>
+            <td>12</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 13</td>
+            <td>13</td>
+            <td>13</td>
+            <td>13</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 14</td>
+            <td>14</td>
+            <td>14</td>
+            <td>14</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 15</td>
+            <td>15</td>
+            <td>15</td>
+            <td>15</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 16</td>
+            <td>16</td>
+            <td>16</td>
+            <td>16</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 17</td>
+            <td>17</td>
+            <td>17</td>
+            <td>17</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 18</td>
+            <td>18</td>
+            <td>18</td>
+            <td>18</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 19</td>
+            <td>19</td>
+            <td>19</td>
+            <td>19</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        <tr>
+            <td>TestName 20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td><a href="">Start</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="../../static/js/jquery.js"></script>
+<script src="../../static/js/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/dataTables.js"></script>
+<script>
+    $("#tests").dataTable();
+</script>
+</body>
+</html>
