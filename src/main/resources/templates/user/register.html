@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" th:href="@{/css/register.css}" href="../../static/css/register.css">
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div class="main-w3layouts wrapper">
     <h1>Sign Up Form</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-            <form action="#" method="post" th:action="@{/api/user/add}" th:object="${user}">
-                <p th:text="${error}" style="color: red"></p>
-                <input class="text" type="text" placeholder="FirstName" required="" th:field="*{firstName}">
-                <input class="text" type="text" placeholder="LastName" th:field="*{lastName}" required="">
-                <input class="text" type="text" placeholder="Username" th:field="*{userName}" required="">
-                <input class="text" type="password" placeholder="Password" th:field="*{password}" required="">
+            <form action="#" method="post" th:action="@{/api/user/add}" th:object="${users}">
+                <p th:text="${error}" class="error"></p>
+                <input class="text" type="text" name="firstName" placeholder="firstName" th:field="*{firstName}">
+                <input class="text" type="text" name="lastName" placeholder="lastName" th:field="*{lastName}">
+                <input class="text" type="text" name="userName" placeholder="userName" th:field="*{userName}">
+                <input class="text" type="password" name="password" placeholder="password" th:field="*{password}">
                 <input type="submit" value="SIGN UP">
             </form>
             <p>Don't have an Account? <a href="#" th:href="@{/login}"> Login Now!</a></p>

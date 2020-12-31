@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResultRepository extends JpaRepository<Result, Long> {
+    public Result findByStudentUserIdAndTestTestId(Integer studentId, Integer testId);
 }

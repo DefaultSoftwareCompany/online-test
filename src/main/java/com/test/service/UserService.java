@@ -6,6 +6,7 @@ import com.test.model.Users;
 import com.test.repository.RolesRepository;
 import com.test.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +37,25 @@ public class UserService {
         return repository.findAll().stream().map(users -> new UserThymeleafModel(users)).collect(Collectors.toList());
     }
 
-    public void addTeacherRole(Integer userId) {
+    public void removeFromTeachers(Integer userId) {
+        Users teacher = repository.findByUserId(userId);
+        Set<Roles> roles = teacher.getRoles();
+        roles.remove(rolesRepository.getByRoleName("TEACHER"));
+        teacher.setRoles(roles);
+        repository.save(teacher);
+        return;
+    }
+
+    public void toggleTeacherRole(Integer userId) {
         Users user = repository.findByUserId(userId);
         Set<Roles> roles = user.getRoles();
-        roles.add(rolesRepository.getByRoleName("TEACHER"));
+        if (roles.contains(rolesRepository.getByRoleName("TEACHER"))) {
+            roles.remove(rolesRepository.getByRoleName("TEACHER"));
+            user.setIsTeacher(false);
+        } else {
+            roles.add(rolesRepository.getByRoleName("TEACHER"));
+            user.setIsTeacher(true);
+        }
         user.setRoles(roles);
         repository.save(user);
     }
@@ -50,7 +66,7 @@ public class UserService {
 
     public Users save(Users users) throws Exception {
         if (!users.getFirstName().trim().isEmpty() && !users.getLastName().trim().isEmpty() && !users.getUserName().trim().isEmpty() && !users.getPassword().trim().isEmpty()) {
-            if (getAll() != null) {
+            if (getAll().size() != 0) {
                 if (getByUserName(users.getUserName()) == null) {
                     Set<Roles> roles = new HashSet<>();
                     roles.add(rolesRepository.getByRoleName("USER"));
@@ -70,7 +86,9 @@ public class UserService {
                 role.setRoleName("TEACHER");
                 roles.add(role);
                 rolesRepository.saveAll(roles);
-                users.setRoles((Set<Roles>) rolesRepository.findAll());
+                users.setRoles((rolesRepository.findAll().stream().collect(Collectors.toSet())));
+                users.setPassword(new BCryptPasswordEncoder().encode(users.getPassword()));
+                users.setIsTeacher(true);
                 return repository.save(users);
             }
         } else throw new Exception("Fill out the form completely!");

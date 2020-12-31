@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Byte roleId;
+    private Short roleId;
 
     @Column(unique = true, nullable = false)
     private String roleName;

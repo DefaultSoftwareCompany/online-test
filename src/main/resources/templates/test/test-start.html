@@ -7,6 +7,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Test</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="../../static/css/test.css" th:href="@{/css/test.css}">
 </head>
 <body>
@@ -29,39 +30,52 @@
                 <li class="nav-item custom-nav-item">
                     <a class="nav-link" href="#" th:href="@{/api/subject}">Subjects</a>
                 </li>
-                <li class="nav-item custom-nav-item" sec:authorize="hasRole('OWNER')">
-                    <a class="nav-link" href="#">All Users</a>
+                <li class="nav-item custom-nav-item" sec:authorize="hasAuthority('OWNER')">
+                    <a class="nav-link" href="#" th:href="@{/api/user/all}">All Users</a>
+                </li>
+                <li class="nav-item custom-nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" href="#" th:href="@{/api/user/add}">Sign Up/In</a>
                 </li>
                 <li class="nav-item custom-nav-item last-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="#" sec:authentication="name"></a>
+                    <a class="nav-link" href="#" sec:authentication="name" th:href="@{/api/user/get}"></a>
+                </li>
+                <li class="nav-item custom-nav-item" sec:authorize="isAuthenticated()">
+                    <a href="#" class="nav-link" th:href="@{/logout}">Logout</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<div class="container">
-    <h1 th:text="${test.testName}" class="test-name"></h1>
-    <p class="time-restriction" style="display: none" th:text="${test.timeRestriction}"></p>
-    <div class="questions" th:each="question : ${test.questions}">
-        <div class="score" style="display: none">
+<div class="wrapper">
+    <h1 th:text="${test.testName}" class="test-name">Test Name</h1>
+    <p class="test-id" th:text="${test.testId}" style="display: none"></p>
+    <p class="time-restriction" style="display: none" th:text="${test.timeRestriction}">20</p>
+    <div class="score" style="display: none">
+        <div style="display: flex; justify-content: space-between">
             <h2></h2>
-            <h3>Review</h3>
+            <a href="" class="save-result"
+               style="display: none; background-color: darkgreen; padding: 7px 12px 5px;text-align: center; border-radius: 5px; border: 3px outset #414141">Save
+                Result</a>
         </div>
-        <div class="time"
-             style="display: flex; justify-content: space-around; font-weight:bold;font-size: 20px; color: orangered; text-shadow: 1px 1px 1px black">
-            <p class="start-time">Started:</p>
-            <p class="end-time">Completion time:</p>
-        </div>
-        <div class="question">
+        <h3>Review</h3>
+    </div>
+    <div class="time"
+         style="display: flex; justify-content: space-around; font-weight:bold;font-size: 20px; color: orangered; text-shadow: 1px 1px 1px black">
+        <p class="start-time">Started:</p>
+        <p class="end-time">Completion time:</p>
+    </div>
+    <div class="questions">
+        <div class="question" th:each="question : ${test.questions}">
             <p class="question-text" th:text="${question.questionText}"></p>
-            <div class="options" th:each="option : ${question.options}">
-                <p th:text="${option.optionValue}" th:attr="true-answer=${option.isTrue}"></p>
+            <div class="options">
+                <p th:each="option : ${question.options}" th:text="${option.optionValue}"
+                   th:attr="true-answer=${option.isTrue}?'true':'false'"></p>
             </div>
         </div>
     </div>
 
-    <button class="submit" onclick="submit()">Submit All And Finish</button>
+    <button class="submit">Submit All And Finish</button>
 </div>
 
 <script type="text/javascript">
@@ -98,33 +112,27 @@
             });
             document.querySelector(".time").style.display = "none";
             document.querySelector(".score").style.display = "block";
-            document.querySelector(".score h2").textContent = "Your Score: " + parseInt(trueAnswers * 100 / allQuestions);
+            document.querySelector(".score h2").innerHTML = "Your Score: <span>" + parseInt(trueAnswers * 100 / allQuestions) + "</span>";
             document.querySelectorAll(".question").forEach(function (question) {
                 question.querySelector(".question-text").classList.replace("question-text", "review-question-text");
                 question.querySelector(".options").classList.replace("options", "review-question-options");
                 question.classList.replace("question", "review-question");
             });
             document.querySelector("button.submit").style.display = "none";
+            request();
             count = 1;
-            let data = {};
-            let date = new Date();
-            data.date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-            date.score = parseInt(trueAnswers * 100 / allQuestions);
-            date.testId = parseInt(document.querySelector(".text-name").innerHTML);
-            fetch("/api/result/save", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            }).then(function (response) {
-                return response.json();
-            }).then(function (text) {
-                console.log(text)
-            }).catch(function (error) {
-                console.log(error);
-            })
         }
+    }
+
+    document.querySelector("button.submit").addEventListener("click", submit);
+
+    function request() {
+        let data = {
+            score: parseInt(document.querySelector(".score h2 span").textContent),
+            testId: parseInt(document.querySelector(".test-id").innerHTML)
+        }
+        document.querySelector(".save-result").href = "/api/result/save/" + data.testId + "/" + data.score;
+        document.querySelector(".save-result").style.display = "block";
     }
 
     animation();

@@ -6,11 +6,9 @@ import com.test.model.Subject;
 import com.test.model.Test;
 import com.test.repository.SubjectRepository;
 import com.test.repository.TestRepository;
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

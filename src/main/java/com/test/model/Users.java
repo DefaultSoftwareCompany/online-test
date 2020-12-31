@@ -38,4 +38,8 @@ public class Users {
     )
     private Set<Roles> roles;
 
+    @Column(
+            columnDefinition = "boolean default false"
+    )
+    private Boolean isTeacher;
 }

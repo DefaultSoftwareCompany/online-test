@@ -31,7 +31,7 @@
     </style>
 </head>
 
-<body sec:authorize="hasRole('OWNER')">
+<body sec:authorize="hasAuthority('OWNER')">
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -54,8 +54,11 @@
                 <li class="nav-item custom-nav-item active">
                     <a class="nav-link" href="#">All Users</a>
                 </li>
-                <li class="nav-item custom-nav-item last-item">
+                <li class="nav-item custom-nav-item">
                     <a class="nav-link" href="#" th:href="@{/api/user/get}" sec:authentication="name"></a>
+                </li>
+                <li class="nav-item custom-nav-item" sec:authorize="isAuthenticated()">
+                    <a href="#" class="nav-link" th:href="@{/logout}">Logout</a>
                 </li>
             </ul>
         </div>
@@ -74,15 +77,15 @@
             <th>Giving the role of “teacher”</th>
         </tr>
         </thead>
-        <tbody th:each="user : ${users}">
-        <tr>
+        <tbody>
+        <tr th:each="user : ${users}">
             <td th:text="${user.user.firstName}"></td>
             <td th:text="${user.user.lastName}"></td>
             <td th:text="${user.user.results.size()}"></td>
-            <td th:text="${user.getAverageScore()}"></td>
+            <td th:text="${user.averageScore}"></td>
             <td><a href="" th:href="@{/api/user/delete/{userId}(userId = ${user.user.userId})}">Delete</a></td>
-            <td><a href="" th:href="@{/api/user/add-to-teacher/{userId}(userId=${user.user.userId})}">Add To
-                Teachers</a></td>
+            <td><a href="" th:href="@{/api/user/teacher/{userId}(userId=${user.user.userId})}"
+                   th:text="${user.user.isTeacher}?'Remove From Teachers':'Add To Teachers'"></a></td>
         </tr>
         </tbody>
     </table>

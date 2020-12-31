@@ -2,7 +2,11 @@ body {
     background: radial-gradient(greenyellow, orange, deepskyblue);
 }
 
-.container {
+.custom-nav-item {
+    padding-left: 30px;
+}
+
+.wrapper {
     background: white;
     margin: 15px 30px;
     padding: 15px 30px;
@@ -39,7 +43,7 @@ h1 {
 
 .error:before {
     content: "";
-    background-image: url("../../static/img/error.png");
+    background-image: url("https://image.similarpng.com/very-thumbnail/2020/11/Red-incorrect-icon-design-on-transparent-background-PNG.png");
     background-size: contain;
     display: inline-block;
     color: red;
@@ -53,7 +57,7 @@ h1 {
     display: inline-block;
     color: green;
     font-weight: bold;
-    background-image: url("../../static/img/correct.png");
+    background-image: url("https://www.freeiconspng.com/uploads/checked-correct-right-yes-checkmark-12.png");
     background-size: contain;
     width: 25px;
     height: 25px;
@@ -64,14 +68,14 @@ h1 {
     color: white;
 }
 
-.questions h3 {
+.score h3 {
     text-align: center;
     font-size: 23px;
     color: darkslategrey;
     text-shadow: 0 0 1px black;
 }
 
-.questions h2 {
+.score h2 {
     color: orangered;
     text-shadow: 2px 2px 5px green;
 }
@@ -87,7 +91,7 @@ h1 {
     border-bottom: 1px solid orangered;
 }
 
-button{
+button {
     display: block;
     background-color: #0b2e13;
     border-radius: 7px;

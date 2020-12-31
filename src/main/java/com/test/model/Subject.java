@@ -13,7 +13,7 @@ import java.util.List;
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Byte subjectId;
+    private Short subjectId;
 
     @Column(unique = true, nullable = false)
     private String subjectName;

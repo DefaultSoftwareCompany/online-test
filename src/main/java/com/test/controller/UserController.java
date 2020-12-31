@@ -26,18 +26,18 @@ public class UserController {
     public ModelAndView addPage(ModelAndView modelAndView) {
         modelAndView.addObject("error", "");
         modelAndView.setViewName("user/register");
-        modelAndView.addObject("user", new Users());
+        modelAndView.addObject("users", new Users());
         return modelAndView;
     }
 
     @PostMapping("/api/user/add")
-    public ModelAndView save(@ModelAttribute Users user, ModelAndView modelAndView) {
+    public ModelAndView save(@ModelAttribute Users users, ModelAndView modelAndView) {
         try {
-            user = service.save(user);
-            modelAndView.setViewName("home");
+            users = service.save(users);
+            modelAndView.setViewName("redirect:/login");
         } catch (Exception e) {
             modelAndView.setViewName("user/register");
-            modelAndView.addObject(user);
+            modelAndView.addObject(users);
             modelAndView.addObject("error", e.getMessage());
         }
         return modelAndView;
@@ -69,10 +69,10 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping("/api/user/add-to-teacher/{userId}")
+    @GetMapping("/api/user/teacher/{userId}")
     public ModelAndView addToTeachers(@PathVariable Integer userId, ModelAndView modelAndView) {
         modelAndView.setViewName("redirect:/api/user/all");
-        service.addTeacherRole(userId);
+        service.toggleTeacherRole(userId);
         return modelAndView;
     }
 

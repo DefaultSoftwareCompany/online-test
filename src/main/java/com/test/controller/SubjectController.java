@@ -31,7 +31,7 @@ public class SubjectController {
     public ModelAndView saveSubject(ModelAndView modelAndView, @ModelAttribute Subject subject) {
         try {
             service.save(subject);
-            modelAndView.setViewName("subject/subject-list");
+            modelAndView.setViewName("redirect:/api/subject");
         } catch (Exception e) {
             modelAndView.setViewName("subject/subject-add");
             modelAndView.addObject("error", e.getMessage());
@@ -48,7 +48,7 @@ public class SubjectController {
     }
 
     @GetMapping("/api/subject/get/{subjectId}")
-    public ModelAndView getSubject(ModelAndView modelAndView, @PathVariable Byte subjectId) {
+    public ModelAndView getSubject(ModelAndView modelAndView, @PathVariable Short subjectId) {
         modelAndView.setViewName("subject/subject-tests");
         modelAndView.addObject("subject", service.getOne(subjectId));
         return modelAndView;

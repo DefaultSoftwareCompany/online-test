@@ -1,43 +1,34 @@
 package com.test.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class UserThymeleafModel {
     private Users user;
 
     private int averageScore;
 
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
-
     public int getAverageScore() {
         List<Byte> byteList = this.user.getResults().stream().map(result -> result.getScore()).collect(Collectors.toList());
-        int sum = 0;
-        for (Byte aByte : byteList) {
-            sum += aByte;
-        }
-        return sum / this.user.getResults().size();
-    }
-
-    public void setAverageScore(Byte averageScore) {
-        this.averageScore = averageScore;
-    }
-
-    public UserThymeleafModel() {
+        if (byteList != null && !byteList.isEmpty()) {
+            int sum = 0;
+            for (Byte aByte : byteList) {
+                sum += aByte;
+            }
+            return sum / this.user.getResults().size();
+        } else return 0;
     }
 
     public UserThymeleafModel(Users user) {
         this.user = user;
     }
 
-    public UserThymeleafModel(Users user, Byte averageScore) {
-        this.user = user;
-        this.averageScore = averageScore;
-    }
 }

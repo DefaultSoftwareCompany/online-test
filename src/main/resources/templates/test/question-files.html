@@ -8,6 +8,15 @@
             background: linear-gradient(70deg, green, yellow, green);
         }
 
+        button {
+            padding: 7px 25px;
+            border-radius: 5px;
+            display: block;
+            margin-top: 20px;
+            background-color: darkgreen;
+            color: white;
+        }
+
         h1 {
             text-align: center;
             color: rgb(30, 27, 75);
@@ -35,14 +44,15 @@
 <body>
 
 <div class="container">
-    <form action="#" method="post" th:action="@{/api/test/questions}">
+    <form action="#" method="post" th:action="@{/api/test/questions}" enctype="multipart/form-data">
         <h1>Add tests files in your Test</h1>
         <p>The file must be in xls or xlxs format, the questions and options must be in one row, the first cell must
             contain the text of the question, the second cell must contain the correct answer, and the remaining cells
             must contain other options.</p>
         <p style="color: red" th:text="${error}"></p>
         <input type="hidden" name="testId" th:value="${test.testId}">
-        <input type="file" class="form-control" class="file">
+        <input type="file" class="form-control" name="file">
+        <button type="submit">Submit</button>
     </form>
 </div>
 

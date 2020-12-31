@@ -15,7 +15,7 @@ public class SubjectService {
         this.repository = repository;
     }
 
-    public Subject getOne(Byte subjectId) {
+    public Subject getOne(Short subjectId) {
         return repository.getOne(subjectId);
     }
 

@@ -24,11 +24,9 @@ public class QuestionService {
     private final Hashids hashids;
     private final TestRepository testRepository;
     private final QuestionFilesRepository filesRepository;
-    private final SubjectRepository subjectRepository;
 
-    public QuestionService(TestRepository testRepository, QuestionFilesRepository filesRepository, SubjectRepository subjectRepository) {
+    public QuestionService(TestRepository testRepository, QuestionFilesRepository filesRepository) {
         this.filesRepository = filesRepository;
-        this.subjectRepository = subjectRepository;
         this.hashids = new Hashids(getClass().getName(), 7);
         this.testRepository = testRepository;
     }
@@ -59,6 +57,7 @@ public class QuestionService {
                         option = new Option();
                         option.setQuestion(question);
                         option.setOptionValue(row.getCell(i).toString());
+                        option.setIsTrue(false);
                         options.add(option);
                     }
                     question.setOptions(options);

@@ -1,12 +1,14 @@
 package com.test.service;
 
 import com.test.model.Result;
-import com.test.model.ResultJsModel;
 import com.test.model.Users;
 import com.test.repository.ResultRepository;
 import com.test.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class ResultService {
@@ -19,12 +21,14 @@ public class ResultService {
         this.testRepository = testRepository;
     }
 
-    public Result save(ResultJsModel resultJsModel, Users student) {
-        Result result = new Result();
+    public Result save(Byte score, Integer testId, Users student) {
+        Result result;
+        if (repository.findByStudentUserIdAndTestTestId(student.getUserId(), testId) == null) result = new Result();
+        else result = repository.findByStudentUserIdAndTestTestId(student.getUserId(), testId);
         result.setStudent(student);
-        result.setTest(testRepository.getOne(resultJsModel.getTestId()));
-        result.setDate(resultJsModel.getDate());
-        result.setScore(resultJsModel.getScore());
+        result.setTest(testRepository.getOne(testId));
+        result.setScore(score);
+        result.setDate(new SimpleDateFormat("dd/MM/YY").format(new Date()));
         return repository.save(result);
     }
 
