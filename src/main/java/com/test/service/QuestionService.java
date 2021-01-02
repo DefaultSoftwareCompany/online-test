@@ -7,7 +7,6 @@ import com.test.repository.TestRepository;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.hashids.Hashids;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,11 +14,9 @@ import java.util.ArrayList;
 
 @Service
 public class QuestionService {
-    private final Hashids hashids;
     private final TestRepository testRepository;
 
     public QuestionService(TestRepository testRepository) {
-        this.hashids = new Hashids(getClass().getName(), 7);
         this.testRepository = testRepository;
     }
 
