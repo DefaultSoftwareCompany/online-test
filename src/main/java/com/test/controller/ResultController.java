@@ -1,11 +1,8 @@
 package com.test.controller;
 
-import com.test.model.Result;
 import com.test.service.ResultService;
-import com.test.service.TestService;
 import com.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
