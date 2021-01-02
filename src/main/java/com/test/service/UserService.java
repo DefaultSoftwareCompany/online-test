@@ -6,11 +6,9 @@ import com.test.model.Users;
 import com.test.repository.RolesRepository;
 import com.test.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,15 +35,6 @@ public class UserService {
         return repository.findAll().stream().map(users -> new UserThymeleafModel(users)).collect(Collectors.toList());
     }
 
-    public void removeFromTeachers(Integer userId) {
-        Users teacher = repository.findByUserId(userId);
-        Set<Roles> roles = teacher.getRoles();
-        roles.remove(rolesRepository.getByRoleName("TEACHER"));
-        teacher.setRoles(roles);
-        repository.save(teacher);
-        return;
-    }
-
     public void toggleTeacherRole(Integer userId) {
         Users user = repository.findByUserId(userId);
         Set<Roles> roles = user.getRoles();
@@ -66,31 +55,13 @@ public class UserService {
 
     public Users save(Users users) throws Exception {
         if (!users.getFirstName().trim().isEmpty() && !users.getLastName().trim().isEmpty() && !users.getUserName().trim().isEmpty() && !users.getPassword().trim().isEmpty()) {
-            if (getAll().size() != 0) {
-                if (getByUserName(users.getUserName()) == null) {
-                    Set<Roles> roles = new HashSet<>();
-                    roles.add(rolesRepository.getByRoleName("USER"));
-                    users.setRoles(roles);
-                    users.setPassword(passwordEncoder.encode(users.getPassword()));
-                    return repository.save(users);
-                } else throw new Exception("This username already exists.");
-            } else {
-                List<Roles> roles = new ArrayList<>();
-                Roles role = new Roles();
-                role.setRoleName("USER");
-                roles.add(role);
-                role = new Roles();
-                role.setRoleName("OWNER");
-                roles.add(role);
-                role = new Roles();
-                role.setRoleName("TEACHER");
-                roles.add(role);
-                rolesRepository.saveAll(roles);
-                users.setRoles((rolesRepository.findAll().stream().collect(Collectors.toSet())));
-                users.setPassword(new BCryptPasswordEncoder().encode(users.getPassword()));
-                users.setIsTeacher(true);
+            if (getByUserName(users.getUserName()) == null) {
+                Set<Roles> roles = new HashSet<>();
+                roles.add(rolesRepository.getByRoleName("USER"));
+                users.setRoles(roles);
+                users.setPassword(passwordEncoder.encode(users.getPassword()));
                 return repository.save(users);
-            }
+            } else throw new Exception("This username already exists.");
         } else throw new Exception("Fill out the form completely!");
     }
 
