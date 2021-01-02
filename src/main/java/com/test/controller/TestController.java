@@ -46,7 +46,7 @@ public class TestController {
     public ModelAndView save(ModelAndView modelAndView, @RequestParam MultipartFile file, @RequestParam Integer testId) {
         try {
             questionService.saveQuestions(file, testId);
-            modelAndView.setViewName("redirect:/api/subject/get/" + testService.getOne(testId).getTestId());
+            modelAndView.setViewName("redirect:/api/subject/get/" + testService.getOne(testId).getSubject().getSubjectId());
         } catch (Exception e) {
             modelAndView.addObject("error", e.getMessage());
             modelAndView.addObject("test", testService.getOne(testId));
