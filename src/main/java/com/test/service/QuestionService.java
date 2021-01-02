@@ -2,10 +2,7 @@ package com.test.service;
 
 import com.test.model.Option;
 import com.test.model.Question;
-import com.test.model.QuestionFiles;
 import com.test.model.Test;
-import com.test.repository.QuestionFilesRepository;
-import com.test.repository.SubjectRepository;
 import com.test.repository.TestRepository;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -14,19 +11,14 @@ import org.hashids.Hashids;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 
 @Service
 public class QuestionService {
     private final Hashids hashids;
     private final TestRepository testRepository;
-    private final QuestionFilesRepository filesRepository;
 
-    public QuestionService(TestRepository testRepository, QuestionFilesRepository filesRepository) {
-        this.filesRepository = filesRepository;
+    public QuestionService(TestRepository testRepository) {
         this.hashids = new Hashids(getClass().getName(), 7);
         this.testRepository = testRepository;
     }
@@ -38,10 +30,7 @@ public class QuestionService {
         } else {
             String extension = getExtension(file.getOriginalFilename());
             if (extension.equalsIgnoreCase("xls") || extension.equalsIgnoreCase("xlsx")) {
-                String filePath = "D:/question-files/" + hashids.encode(testId) + "." + extension;
-                File questionFile = new File(filePath);
-                file.transferTo(questionFile);
-                XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(questionFile));
+                XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
                 XSSFSheet sheet = workbook.getSheetAt(0);
                 ArrayList<Question> questions = new ArrayList<>();
                 for (Row row : sheet) {
@@ -65,11 +54,6 @@ public class QuestionService {
                     questions.add(question);
                 }
                 test.setQuestions(questions);
-                QuestionFiles questionFiles = new QuestionFiles();
-                questionFiles.setFilePath(filePath);
-                questionFiles.setExtension(extension);
-                questionFiles.setTest(test);
-                filesRepository.save(questionFiles);
                 return testRepository.save(test);
             } else throw new Exception("The file extension must be xls or xlsx");
         }

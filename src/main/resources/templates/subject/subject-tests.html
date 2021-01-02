@@ -79,7 +79,7 @@
         </tr>
         </tbody>
         <tfoot>
-        <tr>
+        <tr sec:authorize="hasAuthority('TEACHER') OR hasAuthority('OWNER')">
             <td colspan="6"><a href="" th:href="@{/api/test/add}">Add Test</a></td>
         </tr>
         </tfoot>

@@ -1,6 +1,5 @@
 package com.test.model;
 
-import com.sun.istack.Nullable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -35,7 +34,4 @@ public class Test {
     @ManyToOne
     @JoinColumn
     private Subject subject;
-
-    @OneToOne(mappedBy = "test")
-    private QuestionFiles questionFiles;
 }
